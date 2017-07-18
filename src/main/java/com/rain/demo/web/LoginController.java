@@ -17,13 +17,15 @@ import java.util.Date;
 public class LoginController {
     private UserService userService;
 
-    @RequestMapping(value={"/", "/index.html"})
-    public ModelAndView loginPage(){
-        return new ModelAndView("login");
+    @RequestMapping("/")
+    public String index(){
+        return "Welcome to RainGo Website.";
     }
 
-    @RequestMapping(value = "/loginCheck.html")
-    public ModelAndView loginCheck(HttpServletRequest request, LoginCommand loginCommand){
+    @RequestMapping("/loginCheck")
+    public String loginCheck(HttpServletRequest request, LoginCommand loginCommand){
+        return "Success: " + loginCommand.getUserName() + ", " + loginCommand.getPassword();
+        /*
         boolean isValidUser = userService.haveMatchUser(loginCommand.getUserName(), loginCommand.getPassword());
 
         if(isValidUser){
@@ -36,6 +38,7 @@ public class LoginController {
         }else{
             return new ModelAndView("login", "error", "用户名或密码错误.");
         }
+        */
     }
 
     @Autowired
